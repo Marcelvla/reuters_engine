@@ -24,7 +24,7 @@
     var value_dates = Object.values(js_counts);
   </script>
 
-  <h2>Nice graph</h2>
+  <!-- <h2>Nice graph</h2> -->
   <canvas id="timeline" width=800, height=200></canvas>
   <script src="./node_modules/chart.js/dist/Chart.js"></script>
   <script>
@@ -52,7 +52,7 @@
           'bottom': 10
         }
       },
-      responsive: 0,
+      responsive: 1,
       scales: {
         xAxes: [{
           categoryPercentage: 0.3,

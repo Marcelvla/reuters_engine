@@ -7,21 +7,33 @@
 </head>
 
 <body>
-	<div class='top'><form action='someQueries.php' method='GET'>     <input type='text' name='query' />
-    <input type='submit' value='Search' class='search'/> <button class='search2'>advance search</button></form></div>
+
+	<div class='top'>
+		<div class='timeline'>
+			<form id="time" action='create_timeline.php' method='GET'>
+				<button class='timebutton'>Timeline of results</button>
+			</form>
+		</div>
+
+		<form action='someQueries.php' method='GET'>
+			<input type='text' name='query' />
+    	<input type='submit' value='Search' class='search'/>
+			<button class='search2'>advance search</button>
+		</form>
+	</div>
 	<div class='mid' >
 		<div class='floating' id='1'><h1>Topics</h1>
 		<ul>
 		<li class='cato'>word</li>
-		
+
 		</ul></div>
 		<div class='float2' id='2'>
-		 
+
 		</div>
-		
+
 	</div>
 	<div class='bot'>
-		
+
 	</div>
 </body>
 </html>
