@@ -10,7 +10,7 @@
 
   <script type="text/javascript">
     var js_dates = <?php echo json_encode($php_dates); ?>;
-    document.getElementById("yo").innerHTML =js_dates[1];
+    // document.getElementById("yo").innerHTML =js_dates[1];
     var js_counts = {};
     var date_len = js_dates.length;
     for (var i = 0; i < date_len; i++ ){
@@ -24,7 +24,7 @@
     var value_dates = Object.values(js_counts);
   </script>
 
-  <!-- <h2>Nice graph</h2> -->
+  <h2>Nice graph</h2>
   <canvas id="timeline" width=800, height=200></canvas>
   <script src="./node_modules/chart.js/dist/Chart.js"></script>
   <script>
