@@ -2,10 +2,9 @@
 <html>
 <body>
   <!-- <script type="text/javascript" src="testdata.json"></script> -->
+  <!--  Following array simulates a PHP request for testing purposes.-->
   <?php
-    $php_dates = array("1955", "1961", "1959", "1965", "1951", "1954", "1962",
-    "1952", "1935", "1946", "1961", "1926", "1925", "1932", "1980", "1920",
-    "1923", "1955", "1950", "1932");
+    $php_dates = array("12 NOV 1955", "10 JUN 1961", "05 APR 1959", "11 SEP 2001", "21 AUG 1955");
   ?>
 
   <script type="text/javascript">
@@ -13,33 +12,46 @@
     // document.getElementById("yo").innerHTML =js_dates[1];
     var js_counts = {};
     var date_len = js_dates.length;
-    for (var i = 0; i < date_len; i++ ){
+    // Makes a counttable of every date from the results of the query.
+    for( var i=0; i<date_len; i++ ){
       if (js_dates[i] in js_counts) {
         js_counts[js_dates[i]] += 1;
       } else {
         js_counts[js_dates[i]] = 1;
       }
     }
+    // Takes the keys and values as a list.
     var key_dates = Object.keys(js_counts);
     var value_dates = Object.values(js_counts);
+    var datelist = [];
+    // Turn the date strings into usable Date objects.
+    for( var i=0; i<key_dates.length; i++ ){
+      datelist[i] = { x: new Date(key_dates[i]), y: value_dates[i] };
+    }
+    // Sort by date.
+    datelist.sort(function(a,b){
+      return a.x - b.x;
+    });
+    key_dates = datelist.map(function(dd){return dd.x;});
+    // Make labels for the dates in the DD-MM format.
+    datelabels = key_dates.map(function(el){ var day = el.getDate();
+                                            var mon = el.getMonth() +1;
+                                            return day + '-' + mon});
   </script>
 
-  <h2>Nice graph</h2>
   <canvas id="timeline" width=800, height=200></canvas>
   <script src="./node_modules/chart.js/dist/Chart.js"></script>
   <script>
-
   var ctx = document.getElementById("timeline");
   var timeline = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: key_dates,
-      xAxisID: 'Years',
+      labels: datelabels,
       datasets: [{
-        label: 'Amount of results per year',
-        data: value_dates,
-        backgroundColor:'rgba(200, 0, 0)',
-        borderColor: 'rgba(255, 0, 0)',
+        label: 'N results per year:',
+        data: datelist,
+        backgroundcolor: 'rgba(165, 232, 255)',
+        borderColor: 'rgba(89, 165, 191)',
         borderWidth: 1
       }]
     },
@@ -52,26 +64,21 @@
           'bottom': 10
         }
       },
-      responsive: 1,
+      responsive: 0,
       scales: {
-        xAxes: [{
-          categoryPercentage: 0.3,
-          barPercentage: 0.9,
-          // barThickness: 3,
-          ticks: {
-            gridLines: {
-                offsetGridLines: true
-
+        type: 'time',
+        time: {
+          displayFormats: {
+            day: 'MMM D'
           }
-        }}],
-        yAxes: [{
-          ticks: {
-            beginAtZero:true
-          }
-        }]
+        },
+        distribution: 'series',
+        categoryPercentage: 0.3,
+        barPercentage: 0.9,
+        barThickness: 3,
       }
     }
-  });
+  })
   </script>
 </body>
 </html>
